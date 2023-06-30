@@ -156,6 +156,9 @@ public class RemoteFile
         @Override
         public void close() throws IOException {
             flush();
+            requester.request(newRequest(PacketType.CLOSE))
+                    .retrieve(requester.getTimeoutMs(), TimeUnit.MILLISECONDS)
+                    .ensureStatusPacketIsOK();
         }
 
     }
