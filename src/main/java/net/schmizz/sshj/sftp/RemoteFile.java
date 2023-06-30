@@ -88,7 +88,7 @@ public class RemoteFile
         );
     }
 
-    private void checkWriteResponse(Promise<Response, SFTPException> responsePromise) throws SFTPException {
+private void checkWriteResponse(Promise<Response, SFTPException> responsePromise) throws SFTPException {
         responsePromise.retrieve(requester.getTimeoutMs(), TimeUnit.MILLISECONDS).ensureStatusPacketIsOK();
     }
 
@@ -156,9 +156,7 @@ public class RemoteFile
         @Override
         public void close() throws IOException {
             flush();
-            requester.request(newRequest(PacketType.CLOSE))
-                    .retrieve(requester.getTimeoutMs(), TimeUnit.MILLISECONDS)
-                    .ensureStatusPacketIsOK();
+            RemoteFile.this.close();
         }
 
     }
